@@ -5,18 +5,20 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set("view engine", "ejs");
+var friends = ["Kolya", "Olya", "Vanya", "Manya", "Ramzan"];
 
 app.get("/", function(req, res){
 	res.render("home");
 });
 
 app.post("/addfriend", function(req, res){
-	console.log(req.body);
+	var newFriend = req.body.newFriend;
+	friends.push(newFriend);
+	res.redirect("/friends");
 	res.send("You have reached post route");
 });
 
 app.get("/friends", function(req, res){
-	var friends = ["Kolya", "Olya", "Vanya", "Manya", "Ramzan"];
 	res.render("friends", {friends: friends});
 });
 
